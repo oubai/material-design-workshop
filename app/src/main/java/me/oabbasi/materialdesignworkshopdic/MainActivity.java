@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 notesRecyclerViewAdapter.addItem(input.getText().toString().trim());
-                //TODO add it to DB then open new view
+                //TODO open new view
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -159,6 +159,12 @@ public class MainActivity extends AppCompatActivity {
         public void itemRemoved(int position, String removedItem) {
             Snackbar.make(recyclerViewWeakReference.get(), "Note Deleted", Snackbar.LENGTH_LONG)
                     .setAction("Undo", this).show();
+            //TODO remove from DB
+        }
+
+        @Override
+        public void itemAdded(String addedItem) {
+            //TODO add to DB
         }
 
         @Override
