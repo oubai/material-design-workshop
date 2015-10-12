@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Extend this class in order to implement a recycler view adapter with predefined functionalities
  */
-public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements RecyclerViewAdapterInterface<T> {
     /**
      * The dataset to be used in the recycler view
      */
@@ -67,6 +67,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      * @param itemToBeAdded The item to be added
      * @param position      The position to add the new item to, if null it will append as the last item
      */
+    @Override
     public void addItem(T itemToBeAdded, Integer position) {
         if (position == null) {
             mDataSet.add(itemToBeAdded);
@@ -84,6 +85,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      *
      * @param itemToBeAdded The item to be added
      */
+    @Override
     public void addItem(T itemToBeAdded) {
         addItem(itemToBeAdded, null);
 
@@ -95,6 +97,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      *
      * @param position The position of the to be removed
      */
+    @Override
     public void removeItem(int position) {
         removedItemIndex = position - itemsBeforeCounter;
         removedItem = mDataSet.get(position - itemsBeforeCounter);
@@ -108,6 +111,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      * Use this method to undo the removal of the last item removed, mainly to be used from the
      * SnackBar action
      */
+    @Override
     public void undoRemove() {
         addItem(removedItem, removedItemIndex);
         notifyItemRangeChanged(itemsBeforeCounter, mDataSet.size() + 1);
@@ -122,6 +126,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      *
      * @return The dataSet of the Adapter
      */
+    @Override
     public ArrayList<T> getValues() {
         return this.mDataSet;
     }
@@ -132,6 +137,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      *
      * @param values The new values for the dataSet
      */
+    @Override
     public void setValues(ArrayList<T> values) {
         this.mDataSet = values;
         notifyDataSetChanged();
@@ -141,6 +147,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      * Use this method to react to a item being added to the dataset
      * @param addedItem The item added
      */
+    @Override
     public void itemAdded(T addedItem) {
     }
 
@@ -149,6 +156,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
      * @param position The position the item was removed from
      * @param removedItem The item removed
      */
+    @Override
     public void itemRemoved(int position, T removedItem) {
     }
 }
